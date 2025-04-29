@@ -113,6 +113,8 @@ echo -ne "
 "
 sleep 3
 
+sudo systemctl set-default graphical.target
+
 sudo systemctl enable sddm.service
 
 
