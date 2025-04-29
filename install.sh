@@ -158,25 +158,25 @@ if command -v zsh >/dev/null; then
       cp -b "$HOME/.zprofile" "$HOME/.zprofile-backup" || true
   fi
 
-  # Check if the current shell is zsh
-  current_shell=$(basename "$SHELL")
-  if [ "$current_shell" != "zsh" ]; then
-    printf "Changing default shell to zsh..."
-
-    # Loop to ensure the chsh command succeeds
-    while ! chsh -s "$(command -v zsh)"; do
-      echo "Authentication failed. Please enter the correct password."
-      sleep 1
-    done
-
-    printf "Shell changed successfully to zsh"
-  else
-    echo "Your shell is already set to zsh."
-  fi
-
   echo "run chsh -s $(which zsh) to change shell to zsh after the reboot"
   sleep 5
 
 fi
+
+echo -ne "
+-------------------------------------------------------------------------
+                        Copying configs
+-------------------------------------------------------------------------
+"
+sleep 3
+
+rsync -avhp -I configs/ ~/
+
+echo -ne "
+-------------------------------------------------------------------------
+                        Rebooting in 5s
+-------------------------------------------------------------------------
+"
+sleep 5
 
 sudo systemctl reboot now
