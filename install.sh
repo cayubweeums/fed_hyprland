@@ -53,7 +53,10 @@ personal_package=(
   bat
   lm_sensors
   docker
-  xrdp
+  docker-compose
+  caca-utils
+  imagemagick
+  ffmpeg
 )
 
 # Install base packages
@@ -68,6 +71,17 @@ enabled=1
 gpgcheck=1
 gpgkey=https://repo.charm.sh/yum/gpg.key' | sudo tee /etc/yum.repos.d/charm.repo
 sudo yum install -y gum
+
+echo -ne "
+-------------------------------------------------------------------------
+                        Enable solopasha/hyprland
+-------------------------------------------------------------------------
+"
+sleep 3
+
+sudo dnf copr enable -y solopasha/hyprland
+
+sudo dnf update
 
 echo -ne "
 -------------------------------------------------------------------------
@@ -117,15 +131,6 @@ sleep 3
 sudo systemctl set-default graphical.target
 
 sudo systemctl enable sddm.service
-
-echo -ne "
--------------------------------------------------------------------------
-                        Config xrdp
--------------------------------------------------------------------------
-"
-sleep 3
-
-sudo systemctl enable xrdp
 
 echo -ne "
 -------------------------------------------------------------------------
