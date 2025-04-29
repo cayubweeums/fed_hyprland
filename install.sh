@@ -57,6 +57,9 @@ personal_package=(
   caca-utils
   imagemagick
   ffmpeg
+  flatpak
+  tailscale
+  cifs-utils
 )
 
 # Install base packages
@@ -123,6 +126,46 @@ done
 
 echo -ne "
 -------------------------------------------------------------------------
+                        Install apps
+-------------------------------------------------------------------------
+"
+sleep 3
+
+# Add Flathub repository if not already added
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+app_packages=(
+    "org.signal.Signal"
+    "org.gnome.World.PikaBackup"
+    "com.slack.Slack"
+    "dev.vencord.Vesktop"
+    "com.github.IsmaelMartinez.teams_for_linux"
+    "com.vivaldi.Vivaldi"
+    "org.torproject.torbrowser-launcher"
+    "com.visualstudio.code"
+    "com.bitwarden.desktop"
+    "org.remmina.Remmina"
+    "com.moonlight_stream.Moonlight"
+)
+
+# Install hyprland packages
+for PKG1 in "${app_packages[@]}"; do
+  flatpak install -y flathub "$PKG1"
+done
+
+# Download and install OrcaSlicer flatpak from GitHub release
+echo "Downloading OrcaSlicer Flatpak..."
+wget -q --show-progress https://github.com/SoftFever/OrcaSlicer/releases/download/v2.3.0/OrcaSlicer-Linux-flatpak_V2.3.0_x86_64.flatpak
+
+echo "Installing OrcaSlicer Flatpak..."
+flatpak install -y ./OrcaSlicer-Linux-flatpak_V2.3.0_x86_64.flatpak
+
+# Clean up the downloaded file
+rm ./OrcaSlicer-Linux-flatpak_V2.3.0_x86_64.flatpak
+
+
+echo -ne "
+-------------------------------------------------------------------------
                         Config sddm
 -------------------------------------------------------------------------
 "
@@ -132,9 +175,9 @@ sudo systemctl set-default graphical.target
 
 sudo systemctl enable sddm.service
 
-mkdir -p /usr/share/wayland-sessions
+# sudo mkdir -p /usr/share/wayland-sessions
 
-echo -e "[Desktop Entry]\nName=Hyprland\nComment=An intelligent dynamic tiling Wayland compositor\nExec=Hyprland\nType=Application" > /usr/share/wayland-sessions/hyprland.desktop
+# sudo echo -e "[Desktop Entry]\nName=Hyprland\nComment=An intelligent dynamic tiling Wayland compositor\nExec=Hyprland\nType=Application" > /usr/share/wayland-sessions/hyprland.desktop
 
 echo -ne "
 -------------------------------------------------------------------------
