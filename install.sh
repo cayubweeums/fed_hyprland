@@ -132,6 +132,10 @@ sudo systemctl set-default graphical.target
 
 sudo systemctl enable sddm.service
 
+mkdir -p /usr/share/wayland-sessions
+
+echo -e "[Desktop Entry]\nName=Hyprland\nComment=An intelligent dynamic tiling Wayland compositor\nExec=Hyprland\nType=Application" > /usr/share/wayland-sessions/hyprland.desktop
+
 echo -ne "
 -------------------------------------------------------------------------
                         Install and config zsh
