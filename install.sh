@@ -38,6 +38,7 @@ printf "Installing basic packages"
 hypr_package=(
   bc
   curl
+  cifs-utils
   findutils
   gawk
   git
