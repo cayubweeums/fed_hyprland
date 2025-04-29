@@ -98,13 +98,22 @@ hyprland_packages=(
     "wlogout"
     "python3-gobject" 
     "gtk4"
-    "gdm"
+    "sddm"
 )
 
 # Install hyprland packages
 for PKG1 in "${hyprland_packages[@]}"; do
   sudo dnf install -y "$PKG1"
 done
+
+echo -ne "
+-------------------------------------------------------------------------
+                        Config sddm
+-------------------------------------------------------------------------
+"
+sleep 3
+
+sudo systemctl enable sddm.service
 
 
 echo -ne "
