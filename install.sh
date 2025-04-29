@@ -53,6 +53,7 @@ personal_package=(
   bat
   lm_sensors
   docker
+  xrdp
 )
 
 # Install base packages
@@ -117,6 +118,14 @@ sudo systemctl set-default graphical.target
 
 sudo systemctl enable sddm.service
 
+echo -ne "
+-------------------------------------------------------------------------
+                        Config xrdp
+-------------------------------------------------------------------------
+"
+sleep 3
+
+sudo systemctl enable xrdp
 
 echo -ne "
 -------------------------------------------------------------------------
